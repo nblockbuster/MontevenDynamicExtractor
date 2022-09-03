@@ -5,7 +5,7 @@
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LocalDebuggerCommandArguments>-p "D:/D2_Backups/Shadowkeep/packages" -i 69DFBF80 -t -o "output" -c</LocalDebuggerCommandArguments>
+    <LocalDebuggerCommandArguments>-p "D:/D2_Backups/Shadowkeep/packages" -t -o "output" -c -i fc22fe80</LocalDebuggerCommandArguments>
     <DebuggerFlavor>WindowsLocalDebugger</DebuggerFlavor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDll|x64'">

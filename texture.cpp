@@ -191,24 +191,19 @@ void Material::parseCBuffers()
 
     -- 3F018080 stride 16 external cbuffers -- incorrect
 
-    -- F3738080 stride 16 ext cbuffers? -- ext cbuffers dont exist? no clue
+    -- F3738080 stride 16 ext cbuffers? -- ext cbuffers dont exist? no clue -- they do, im dumb
+
     ---
     vertex stuff is unknown atm
 
-    vertex 0x68 vertex shader texture offset
-    vertex 0x80 09008080 internal offset
-    vertex 0x90 90008080 internal offset
-    vertex 0xA0 3F018080 internal offset
-    vertex 0xB0 90008080 internal offset
-
     pixel 0x2F0 09008080 internal offset
+    pixel 0x300 90008080 internal offset
     pixel 0x310 F3738080 internal offset
     pixel 0x320 90008080 internal offset
-    -- pixel 0x2F0 90008080 internal offset -- doesnt exist?
-    -- pixel 0x30C external cbuffer hash -- idk
+    pixel 0x34C external cbuffer hash
     */
 
-    std::vector<int> pixelOffsets = { 0x2F0, 0x320 };
+    std::vector<int> pixelOffsets = { 0x2F0, 0x300, 0x320 };
     uint32_t val;
     uint32_t count;
     getData();
