@@ -83,4 +83,8 @@ public:
 
 	void parseMaterial();
 	void exportTextures(std::string fullSavePath, std::string saveFormat);
+	void parseCBuffers();
+	void writeCBuffers(std::string fullSavePath);
 };
+
+std::string getCBufferFromOffset(unsigned char* data, int offset, int count, uint32_t cbType, std::string name);

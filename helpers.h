@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <unordered_map>
-#include "../DestinyUnpackerCPP/package.h"
+#include "DestinyUnpackerCPP/package.h"
 
 // forward declarations
 class Texture;

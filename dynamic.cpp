@@ -502,7 +502,7 @@ std::vector<std::vector<uint8_t>> Dynamic::trimVertsData(std::vector<std::vector
 }
 
 
-void Dynamic::pack(std::string saveDirectory)
+void Dynamic::pack(std::string saveDirectory, bool bCBuffer)
 {
 	std::filesystem::create_directories(saveDirectory);
 	for (int i = 0; i < meshes.size(); i++)
@@ -539,7 +539,7 @@ void Dynamic::pack(std::string saveDirectory)
 				if (meshes.size() == 1) submesh->name = hash + "_" + std::to_string(j);
 				else submesh->name = hash + "_" + std::to_string(i) + "_" + std::to_string(j);
 
-				FbxNode* node = fbxModel->addSubmeshToFbx(submesh, bones, saveDirectory, bTextures);
+				FbxNode* node = fbxModel->addSubmeshToFbx(submesh, bones, saveDirectory, bTextures, bCBuffer);
 				nodes.push_back(node);
 			}
 		}

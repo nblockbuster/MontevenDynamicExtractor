@@ -1,6 +1,6 @@
 #include "fbxmodel.h"
 
-FbxNode* FbxModel::addSubmeshToFbx(DynamicSubmesh* submesh, std::vector<Node*> bones, std::string fullSavePath, bool bTextures)
+FbxNode* FbxModel::addSubmeshToFbx(DynamicSubmesh* submesh, std::vector<Node*> bones, std::string fullSavePath, bool bTextures, bool bCBuffer)
 {
 	bool bAddSkeleton = submesh->weights.size() && bones.size();
 
@@ -38,6 +38,11 @@ FbxNode* FbxModel::addSubmeshToFbx(DynamicSubmesh* submesh, std::vector<Node*> b
 		fwrite(toWrite.c_str(), toWrite.size(), 1, texFile);
 		fclose(texFile);
 		submesh->material->exportTextures(fullSavePath + "/textures/", "png");
+	}
+
+	if (submesh->material != nullptr && bCBuffer)
+	{
+		submesh->material->writeCBuffers(fullSavePath);
 	}
 
 	return node;

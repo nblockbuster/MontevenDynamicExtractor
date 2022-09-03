@@ -17,7 +17,7 @@ int main(int argc, char** argv)
 	sarge.setArgument("i", "inputhash", "hash of Dynamic Model Header 1", true);
 	sarge.setArgument("t", "textures", "enables textures", false);
 	sarge.setArgument("b", "batch", "batch with pkg ID", true);
-	sarge.setArgument("a", "api", "api hash", true);
+	//sarge.setArgument("a", "api", "api hash", true);
 	sarge.setArgument("s", "skeloverride", "skeleton override", true);
 	sarge.setArgument("c", "cbuffer", "enable cbuffer extraction", false);
 	sarge.setArgument("h", "shader", "shader hash", true);
@@ -35,6 +35,7 @@ int main(int argc, char** argv)
 	std::string fileName;
 	std::string modelHash;
 	bool bTextures = false;
+	bool bCBuffer = false;
 	std::string batchPkg;
 	sarge.getFlag("pkgspath", pkgsPath);
 	sarge.getFlag("outputpath", outputPath);
@@ -42,6 +43,7 @@ int main(int argc, char** argv)
 	sarge.getFlag("inputhash", modelHash);
 
 	bTextures = sarge.exists("textures");
+	bCBuffer = sarge.exists("cbuffer");
 	sarge.getFlag("batch", batchPkg);
 
 	if (fileName == "")
@@ -84,7 +86,7 @@ int main(int argc, char** argv)
 	{
 		printf("\n\nFile extraction readied...\n");
 		outputPath += "/" + fileName + "/";
-		dyn.pack(outputPath);
+		dyn.pack(outputPath, bCBuffer);
 		dyn.save(outputPath, fileName);
 		std::cout << "\nFile extraction complete! Saved to " << outputPath << "/" << fileName << ".fbx\n";
 	}
@@ -107,7 +109,7 @@ void doBatch(std::string pkgsPath, std::string outputPath, std::string batchPkg)
 		bool status = dyn.get();
 		if (status)
 		{
-			dyn.pack(outputPath);
+			dyn.pack(outputPath, false);
 			dyn.save(outputPath, hash);
 			std::cout << "\nFile extraction complete! Saved to " << outputPath << "/" << hash << ".fbx\n";
 		}
