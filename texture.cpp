@@ -19,7 +19,7 @@ void Texture::save(std::string fullSavePath, std::string saveFormat)
     if (DSImage.GetImageCount() == 0) return;
     DirectX::Image DImage = *DSImage.GetImage(0, 0, 0);
     if (!DImage.width) return;
-    std::string FileName;
+    std::string FileName = fullSavePath;
     std::wstring widestr;
     const wchar_t* widecstr;
     if (saveFormat == "png")
@@ -126,7 +126,7 @@ void Material::exportTextures(std::string fullSavePath, std::string saveFormat)
     {
         uint8_t texID = element.first;
         Texture* tex = element.second;
-        newPath = fullSavePath + "/" + tex->hash + "." + saveFormat;
+        newPath = fullSavePath + "/" + tex->hash;
         if (!tex) continue;
         tex->get();
         tex->save(newPath, saveFormat);
