@@ -1,6 +1,7 @@
 #pragma once
 #include "helpers.h"
-#include "vcpkg/packages/directxtex_x64-windows/include/DirectXTex.h"
+#include <DirectXTex.h>
+#include "libmorton/include/libmorton/morton.h"
 #include <fstream>
 
 enum eTextureFormat

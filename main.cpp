@@ -10,17 +10,6 @@ Using Sarge https://mayaposch.wordpress.com/2019/03/17/parsing-command-line-argu
 int main(int argc, char** argv)
 {
 	HRESULT hr = CoInitializeEx(nullptr, COINIT_MULTITHREADED);
-
-	Dynamic dynamic = Dynamic("5b82a780", "P:/D1/packages/", eTextureFormat::DDS, "b227ad80");
-	dynamic.get();
-	dynamic.pack("C:/Users/monta/Downloads/phonond1maps/");
-	dynamic.save("C:/Users/monta/Downloads/phonond1maps/", "test_model");
- 	exit(2222);
-
-	D1Map dm = D1Map("74449881", "P:/D1/packages/", eTextureFormat::DDS);
-	dm.Get();
-	dm.Extract("C:/Users/monta/Downloads/phonond1maps/", "test_map");
-	exit(2313);
 	Sarge sarge;
 
 	sarge.setArgument("p", "pkgspath", "pkgs path", true);

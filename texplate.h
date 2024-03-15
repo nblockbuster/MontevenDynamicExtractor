@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include "helpers.h"
-#include "vcpkg/packages/directxtex_x64-windows/include/DirectXTex.h"
+#include <DirectXTex.h>
 #include "texture.h"
 
 class TexplateTexture : public Texture

@@ -42,6 +42,16 @@ void Texture::Get()
         bytesPerPixel = 16;
         pixelBlockSize = 4;
         break;
+    case 0x80:
+        dxgiFormat = DXGI_FORMAT::DXGI_FORMAT_BC6H_UF16;
+        bytesPerPixel = 16;
+        pixelBlockSize = 4;
+        break;
+    case 0x90:
+        dxgiFormat = DXGI_FORMAT::DXGI_FORMAT_BC7_UNORM;
+        bytesPerPixel = 16;
+        pixelBlockSize = 4;
+        break;
     case 0xA0:
         dxgiFormat = DXGI_FORMAT::DXGI_FORMAT_R8G8B8A8_UNORM;
         bytesPerPixel = 4;
@@ -88,65 +98,54 @@ void Texture::Get()
     delete dataFile->data;
 }
 
-static int Morton2D(int t, int sx, int sy)
-{
-    int num2 = 0;
-    int num = num2 = 1;
-    int num3 = t;
-    int num4 = sx;
-    int num5 = sy;
-    int num6 = 0;
-    int num7 = 0;
-    while (num4 > 1 || num5 > 1)
-    {
-        if (num4 > 1)
-        {
-            num6 += num2 * (num3 & 1);
-        }
-        num3 >>= 1;
-        num2 *= 2;
-        num4 >>= 1;
-        if (num5 > 1)
-        {
-            num7 += num * (num3 & 1);
-        }
-        num3 >>= 1;
-        num *= 2;
-        num5 >>= 1;
-    }
-    return num7 * sx + num6;
-}
-
 void Texture::considerDoSwizzle(unsigned char* data, int fs, int width, int height)
 {
-    if (flag & 0x1)
+    if (flag &~ 0x1)
     {
-        unsigned char* outData = new unsigned char[fs];
-        int ptr = 0;
-        int tHeight = height / pixelBlockSize;
-        int tWidth = width / pixelBlockSize;
-        for (int y = 0; y < (tHeight + 7) / 8; y++)
-        {
-            for (int x = 0; x < (tWidth + 7) / 8; x++)
-            {
-                for (int k = 0; k < 64; k++)
-                {
-                    int pixelIndex = Morton2D(k, 8, 8);
-                    int xOffset = (x * 8) + (pixelIndex % 8);
-                    int yOffset = (y * 8) + (pixelIndex / 8);
-                    if (xOffset < tWidth && yOffset < tHeight)
-                    {
-                        int idx = bytesPerPixel * (yOffset * tWidth + xOffset);
-                        memcpy(outData + idx, data + ptr, bytesPerPixel);
-                        ptr += bytesPerPixel;
-                    }
+        return;
+    }
 
+    unsigned char* outData = nullptr;
+    std::vector<unsigned char> realOutData(fs);
+    outData = &realOutData[0];
+    //std::vector<char> outData{};
+    //outData.resize(info.fileSize);
+    uint16_t tWidth = width / pixelBlockSize;
+    uint16_t tHeight = height / pixelBlockSize;
+
+    //int bytesPerPixel = DirectX::BitsPerPixel(dxgiFormat) * 2;
+    //if (pixelBlockSize == 1) {
+    //    bytesPerPixel = (bytesPerPixel / 2) / 8;
+    //}
+
+    int index = 0;
+    for (int y = 0; y < (tHeight + 7) / 8; ++y)
+    {
+        for (int x = 0; x < (tWidth + 7) / 8; ++x)
+        {
+            for (int t = 0; t < 64; ++t)
+            {
+                uint_fast16_t XpixelIndex = 8;
+                uint_fast16_t YpixelIndex = 8;
+                libmorton::morton2D_32_decode(t, XpixelIndex, YpixelIndex);
+                int pixelIndex = YpixelIndex * 8 + XpixelIndex;
+
+                int xOffset = (x * 8) + (pixelIndex % 8);
+                int yOffset = (y * 8) + (pixelIndex / 8);
+
+                if (xOffset < tWidth && yOffset < tHeight)
+                {
+                    int destIndex = bytesPerPixel * (yOffset * tWidth + xOffset);
+
+                    memcpy(outData + destIndex, data + index, bytesPerPixel);
                 }
+
+                index += bytesPerPixel;
             }
         }
-        memcpy(data, outData, fs);
-        delete outData;
     }
+    memcpy(data, outData, fs);
+    std::fill(&outData[0], &outData[sizeof(outData)], 0);
 }
 
 bool Texture::Save(std::string fullSavePath, eTextureFormat TextureFormat)

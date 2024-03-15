@@ -1,0 +1,7 @@
+[submodule "libmorton"]
+	path = libmorton
+	url = https://github.com/Forceflow/libmorton.git
+[submodule "DestinyUnpackerCPP"]
+	path = DestinyUnpackerCPP
+	url = https://github.com/MontagueM/DestinyUnpackerCPP.git
+	branch = d1
