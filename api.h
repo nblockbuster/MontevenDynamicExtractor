@@ -10,3 +10,11 @@ std::vector<std::string> getHashesFromH64s(std::vector<std::string> h64Files, st
 uint32_t getArtArrangementHash(uint32_t apiHash, std::string packagesPath);
 bool getAPIShader(uint32_t apiHash, std::string outputPath, std::string packagesPath, std::unordered_map<uint64_t, uint32_t> hash64Table);
 void writeShader(std::unordered_map<std::string, std::unordered_map<std::string, std::vector<float>>> dyes, std::unordered_map<std::string, std::unordered_map<std::string, std::string>> textures, bool bCustom, std::string outputPath);
+
+const std::string InventoryItemMapHash = "3EFDDB80"; // 97798080
+const std::string ArtArrangementMapHash = "0FA0A780"; // F2708080
+const std::string EntityAssignmentMapHash = "C1A1A780"; // CE558080
+const std::string DyeChannelHash = "C0A1A780"; // 68768080
+const std::string DyeManifestHash = "C2A1A780"; // C2558080
+const std::string DyeFileHash = "A28EA780"; // 8C978080
+const std::string PairTableHash = "A38EA780"; // 434F8080
