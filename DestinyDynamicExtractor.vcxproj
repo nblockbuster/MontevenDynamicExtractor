@@ -178,7 +178,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(FBXSDK_PATH)\lib\vs2019\x64\debug;$(FBXSDK_PATH)\lib;C:\Program Files (x86)\Windows Kits\10\Lib;Sarge\src</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FBXSDK_PATH)\lib\x64\debug;$(FBXSDK_PATH)\lib;C:\Program Files (x86)\Windows Kits\10\Lib;Sarge\src</AdditionalLibraryDirectories>
       <AdditionalDependencies>$(OutDir)DestinyUnpackerCPP.lib;libfbxsdk-md.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>LIBMCT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <Profile>true</Profile>
@@ -201,7 +201,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>$(OutDir)DestinyUnpackerCPP.lib;libfbxsdk-md.lib;wininet.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(FBXSDK_PATH)\lib\vs2019\x64\release;$(FBXSDK_PATH)\lib;Sarge\src;C:\Program Files (x86)\Windows Kits\10\Lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(FBXSDK_PATH)\lib\x64\release;$(FBXSDK_PATH)\lib;Sarge\src;C:\Program Files (x86)\Windows Kits\10\Lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseDll|x64'">
